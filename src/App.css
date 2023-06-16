@@ -2,37 +2,70 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  margin: 20px auto;
+  border: 5px solid white;
+  border-radius: 10px;
+  width: 80%;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.title {
+  text-align: center;
+  margin: 25px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav-date {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 0 10px;
+}
+
+.table-header, .nav-date, .tab {
+  background-color: #414bb2;
+  padding: 0px 25px;
+  margin: 0 10px;
+  border-radius: 25px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* modal */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 50%;
+}
+
+.close {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.close:hover {
+  color: red;
+}
+
+.modal input {
+  margin: 10px auto;
+  width: 100%;
+}
+
+.modal button {
+  width: 100%;
+  margin: 10px auto;
 }

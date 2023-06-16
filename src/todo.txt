@@ -1,0 +1,14 @@
+finished:
+make agenda direct back to home. 
+create an event button
+add task bar or links to agenda page
+
+
+to do:
+get todo list working
+better styling
+get popup working
+save tasks and events to database
+separate two task types by a boolean
+fix onClick for tasks to just the text area
+

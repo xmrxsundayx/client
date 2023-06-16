@@ -1,24 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import 'react-big-scheduler/lib/css/style.css';
+import React, {useState} from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import TaskList from './components/TaskList';
+import Navbar from './components/Navbar';
+import Calendar from './components/MyCalendar';
+
+const currentPath='/'
 
 function App() {
+  const currentDate = new Date();
+  const[allTasks, setAllTasks] = useState([]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className='container'>
+        <Navbar />
+        <Routes>
+          <Route path="/calendar" element={<Calendar currentDate={currentDate} allTasks={allTasks} setAllTasks={setAllTasks} />} />
+          <Route path="/" element={
+            <div className="row">
+              <div className="col-6">
+                <TaskList allTasks={allTasks} setAllTasks={setAllTasks}/>
+              </div>
+              <div className="col-6">
+                <Calendar currentDate={currentDate} currentPath={currentPath} />
+              </div>
+            </div>
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
