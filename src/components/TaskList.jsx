@@ -8,6 +8,7 @@ const TaskList = ({ allTasks, setAllTasks }) => {
     const [errors, setErrors] = useState({});
     const [showModal, setShowModal] = useState(false);
     const [selectedTaskIndex, setSelectedTaskIndex] = useState(null);
+    const [modalType, setModalType] = useState(''); // ["Create", "Update"
 
     // ****************************************
     // get all tasks - works and finished
@@ -41,9 +42,10 @@ const TaskList = ({ allTasks, setAllTasks }) => {
         setAllTasks(newTask);
     };
 
-    const openModal = (index) => {
+    const openModal = (index, status) => {
         setSelectedTaskIndex(index);
         setShowModal(true);
+        setModalType(status);
     };
 
     const closeModal = () => {
@@ -74,7 +76,7 @@ const TaskList = ({ allTasks, setAllTasks }) => {
     const updateTask = (e) => {
         e.preventDefault();
         axios
-            .put('http://localhost:8000/api/task/' + allTasks[selectedTaskIndex]._id, {
+            .patch(`http://localhost:8000/api/task/${allTasks[selectedTaskIndex]._id}`, {
                 title,
                 start,
                 end
@@ -87,12 +89,13 @@ const TaskList = ({ allTasks, setAllTasks }) => {
                 setStart('');
                 setEnd('');
                 closeModal();
+                console.log(res.data);
             })
             .catch((err) => {
                 setErrors(err.response.data.errors);
             });
     };
-    
+
 
     return (
         <>
@@ -114,8 +117,8 @@ const TaskList = ({ allTasks, setAllTasks }) => {
                                                     checked={task.isComplete || false}
                                                 />
                                                 <label
-                                                    className='form-check-label'
-                                                    onClick={() => openModal(index)}
+                                                    className='form-check-label w-100 text-left'
+                                                    onClick={() => openModal(index, "Update")}
                                                 >
                                                     <span
                                                         className={
@@ -128,11 +131,11 @@ const TaskList = ({ allTasks, setAllTasks }) => {
                                             </div>
                                         ) : (
                                             <div className='form-check'>
-                                                <span 
-                                                onClick={() => openModal(index)} 
-                                                className='text-muted'>
-                                                    No data
-                                                    </span>
+                                                <span
+                                                    onClick={() => openModal(index, "Create")}
+                                                    className='text-muted'>
+                                                    Create A Task
+                                                </span>
                                             </div>
                                         )}
                                     </td>
@@ -173,7 +176,7 @@ const TaskList = ({ allTasks, setAllTasks }) => {
                                                 />
                                                 <label
                                                     className='form-check-label'
-                                                    onClick={() => openModal(index)}
+                                                    onClick={() => openModal(index, "Update")}
                                                 >
                                                     <span
                                                         className={
@@ -186,11 +189,11 @@ const TaskList = ({ allTasks, setAllTasks }) => {
                                             </div>
                                         ) : (
                                             <div className='form-check'>
-                                                <span 
-                                                onClick={() => openModal(index)} 
-                                                className='text-muted'>
+                                                <span
+                                                    onClick={() => openModal(index, "Create")}
+                                                    className='text-muted'>
                                                     No data
-                                                    </span>
+                                                </span>
                                             </div>
                                         )}
                                     </td>
@@ -219,7 +222,7 @@ const TaskList = ({ allTasks, setAllTasks }) => {
                         <span className='close' onClick={closeModal}>
                             &times;
                         </span>
-                        <form onSubmit={createTask}>
+                        <form onSubmit={modalType==="Create"?  createTask : updateTask}>
                             <input
                                 type='text'
                                 value={title}
@@ -239,7 +242,7 @@ const TaskList = ({ allTasks, setAllTasks }) => {
                                 placeholder='End date'
                             />
                             <button className='btn btn-sm btn-outline-primary rounded-5' type='submit'>
-                                Create
+                                {modalType === "Create"? "Create" : "Update"}
                             </button>
                         </form>
                     </div>

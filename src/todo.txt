@@ -2,13 +2,20 @@ finished:
 make agenda direct back to home. 
 create an event button
 add task bar or links to agenda page
+get todo list working
+get popup working
+save tasks and events to database
+fix onClick for tasks to just the text area
+fix update/create with ternary
 
 
 to do:
-get todo list working
 better styling
-get popup working
-save tasks and events to database
 separate two task types by a boolean
-fix onClick for tasks to just the text area
+checkbox multifuntions
+add drag and drop
+add flex box to calendar
+validations
+row restrictions (3/8)
+
 
